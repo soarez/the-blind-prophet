@@ -1,0 +1,46 @@
+<!doctype html>
+
+<html>
+  <meta charset="utf-8">
+  <head>
+    <title>The Blind Prophet</title>
+  </head>
+
+  <link rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="src/viewer.js"></script>
+  <script type="text/javascript" src="src/model.js"></script>
+  <script type="text/javascript">
+
+    var model = new Model(100);
+    var viewer = new Viewer(model, window.innerWidth * 0.9, window.innerHeight * 0.9);
+
+    var controller = model.getController();
+    
+    var frequency = 10;
+
+    function DOMContentLoaded() {
+      document.body.appendChild(viewer.el);
+
+      setInterval(function() {
+        (self['tick'] || randomStrategy)(controller);
+        viewer.update();
+
+      }, 1000 / frequency);
+    }
+
+    document.addEventListener('DOMContentLoaded', DOMContentLoaded, false);
+    
+    
+    function randomStrategy(controller) {
+      if (controller.distance() === 0)
+        return;
+
+      var options = ['up', 'down', 'left', 'right'];
+      var randomDirection = options[Math.floor(Math.random() * options.length)];
+      controller.move(randomDirection);
+    }
+    
+  </script>
+  <body>
+  </body>
+</html>

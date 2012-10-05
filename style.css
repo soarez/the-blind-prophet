@@ -1,0 +1,13 @@
+
+html {
+  background-color: rgb(245, 255, 245);
+}
+
+canvas {
+  background-color: rgb(255, 247, 247);
+  border: thin rgb(30, 40, 50);
+  border-radius: 13px;
+  box-shadow: 3px 3px 10px 0 rgba(50, 60, 90, 0.8);
+  display: block;
+  margin: auto;
+}
