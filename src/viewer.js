@@ -1,3 +1,11 @@
+function setupTrigger(obj, methodName, callback, context) {
+  var method = obj[methodName];
+  obj[methodName] = function() {
+    var res = method.apply(obj, arguments);
+    callback.call(context, {arg: arguments, res: res});
+    return res;
+  };
+}
 
 function Viewer(model, width, height) {
   
@@ -22,6 +30,9 @@ function Viewer(model, width, height) {
   this.trailSize = defaultSize;
 
   this.drawTarget();
+
+  setupTrigger(model, 'move', this.update, this);
+  setupTrigger(model, 'reset', this.clear, this);
 }
 
 Viewer.prototype.clear = function() {

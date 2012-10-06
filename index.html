@@ -23,8 +23,6 @@
 
       setInterval(function() {
         (self['tick'] || randomStrategy)(controller);
-        viewer.update();
-
       }, 1000 / frequency);
     }
 
