@@ -63,7 +63,7 @@
     <p>The prophet is lost in his way to the target.</p>
     <div id="viewer"></div>
     <p>He can only <code>move('up')</code>, <code>move('down')</code>, <code>move('left')</code>, <code>move('right')</code> or get the <code>distance()</code> to its target.</p>
-    <p>Help him find his way quicker, by hacking <code>tick()</code> <button onclick="go()">Okay, Go!</button></p>
+    <p>Help him find his way quicker, by hacking <code>tick()</code> <button onclick="go()">Okay, Go!</button> <button onclick="model.reset()">Reset</button></p>
     <div class="edit">
 <pre id="editor">function tick(p) {
   if (p.distance() === 0)
