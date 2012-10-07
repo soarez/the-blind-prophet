@@ -19,7 +19,7 @@ function Viewer(model, width, height) {
   this.el.height = height;
   this.ctx = this.el.getContext('2d');
 
-  var defaultSize = Math.min(this.el.width, this.el.height) / 100;
+  var defaultSize = Math.max(this.el.width  / this.model.width, this.el.height / this.model.height);
 
   // settings
   this.prophetColor = '55F';
