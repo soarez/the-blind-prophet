@@ -31,11 +31,14 @@ function Viewer(model, width, height) {
 
   this.drawTarget();
 
+  this.o = undefined;
+
   setupTrigger(model, 'move', this.update, this);
   setupTrigger(model, 'reset', this.clear, this);
 }
 
 Viewer.prototype.clear = function() {
+  this.o = undefined;
   this.ctx.clearRect(0, 0, this.el.width, this.el.height);
 };
 
