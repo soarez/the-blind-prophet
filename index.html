@@ -1,78 +1,84 @@
 <!doctype html>
-
 <html lang="en">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>The Blind Prophet</title>
   </head>
-
-  <script src="lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
-
-  <link rel="stylesheet" href="style.css">
-  <script type="text/javascript" src="src/viewer.js"></script>
-  <script type="text/javascript" src="src/model.js"></script>
-  <script type="text/javascript">
-
-    var model = new Model(100);
-    var viewer = new Viewer(model, 600, 375);
-
-    var controller = model.getController();
-    
-    var frequency = 10;
-
-    function DOMContentLoaded() {
-      editor = ace.edit("editor");
-      editor.setTheme("ace/theme/chrome");
-      editor.getSession().setMode("ace/mode/javascript");
-      editor.getSession().setUseWrapMode(true);
-
-      document.getElementById('viewer').appendChild(viewer.el);
-
-      setInterval(function() {
-        (self['tick'] || randomStrategy)(controller);
-      }, 1000 / frequency);
-    }
-
-    document.addEventListener('DOMContentLoaded', DOMContentLoaded, false);
-    
-    function go() {
-      try {
-        self['tick'] = (new Function(editor.getValue() + ';try { return tick; } catch(e) { return null; }'))();
-      } catch(e) {
-        alert('The syntax is no good');
-        return;
-      }
-
-      if (self.tick == null)
-        alert('Define a valid function tick()');
-    }
-    
-    function randomStrategy(controller) {
-      if (controller.distance() === 0)
-        return;
-
-      var options = ['up', 'down', 'left', 'right'];
-      var randomDirection = options[Math.floor(Math.random() * options.length)];
-      controller.move(randomDirection);
-    }
-    
-  </script>
   <body>
     <a href="https://github.com/Soarez/the-blind-prophet"><img style="position:absolute;top:0;right:0;border:0;" width="149" height="149" src="forkme.png" alt="Fork me on GitHub"></a>
     <p>The prophet is lost in his way to the target.</p>
     <div id="viewer"></div>
     <p>He can only <code>move('up')</code>, <code>move('down')</code>, <code>move('left')</code>, <code>move('right')</code> or get the <code>distance()</code> to its target.</p>
-    <p>Help him find his way quicker, by hacking <code>tick()</code> <button onclick="go()">Okay, Go!</button> <button onclick="model.reset()">Reset</button></p>
+    <p>Help him find his way quicker, by hacking <code>tick()</code>
+    <button onclick="go()">Okay, Go!</button>
+    <button onclick="reset()">Reset</button></p>
     <div class="edit">
-<pre id="editor">function tick(p) {
+<pre id="editor">
+function tick(p) {
   if (p.distance() === 0)
     return;
 
   var options = ['up', 'down', 'left', 'right'];
   var random = options[Math.floor(Math.random() * options.length)];
   p.move(random);
-}</pre>
+}
+</pre>
     </div>
+    <script src="lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="src/viewer.js"></script>
+    <script type="text/javascript" src="src/model.js"></script>
+    <script type="text/javascript">
+
+var model = new Model(100);
+var viewer = new Viewer(model, 600, 375);
+
+var controller = model.getController();
+
+var frequency = 10;
+
+function DOMContentLoaded() {
+  editor = ace.edit("editor");
+  editor.setTheme("ace/theme/chrome");
+  editor.getSession().setMode("ace/mode/javascript");
+  editor.getSession().setUseWrapMode(true);
+
+  document.getElementById('viewer').appendChild(viewer.el);
+
+  setInterval(function() {
+    (self['tick'] || randomStrategy)(controller);
+  }, 1000 / frequency);
+}
+
+document.addEventListener('DOMContentLoaded', DOMContentLoaded, false);
+
+function go() {
+  try {
+    self['tick'] = (new Function(editor.getValue() + ';try { return tick; } catch(e) { return null; }'))();
+  } catch(e) {
+    alert('The syntax is no good');
+    return;
+  }
+
+  if (self.tick == null)
+    alert('Define a valid function tick()');
+}
+
+function reset() {
+  model.reset();
+}
+
+function randomStrategy(controller) {
+  if (controller.distance() === 0)
+    return;
+
+  var options = ['up', 'down', 'left', 'right'];
+  var randomDirection = options[Math.floor(Math.random() * options.length)];
+  controller.move(randomDirection);
+}
+
+    </script>
   </body>
 </html>
