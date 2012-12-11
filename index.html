@@ -12,7 +12,9 @@
     <p>The prophet is lost in his way to the target.</p>
     <div id="viewer"></div>
     <p>He can only <code>move('up')</code>, <code>move('down')</code>, <code>move('left')</code>, <code>move('right')</code> or get the <code>distance()</code> to its target.</p>
-    <p>Help him find his way quicker, by hacking <code>tick()</code> <button onclick="go()">Okay, Go!</button> <button onclick="model.reset()">Reset</button></p>
+    <p>Help him find his way quicker, by hacking <code>tick()</code>
+    <button onclick="go()">Okay, Go!</button>
+    <button onclick="reset()">Reset</button></p>
     <div class="edit">
 <pre id="editor">
 function tick(p) {
@@ -25,12 +27,12 @@ function tick(p) {
 }
 </pre>
     </div>
-      <script src="lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 
-      <link rel="stylesheet" href="style.css">
-      <script type="text/javascript" src="src/viewer.js"></script>
-      <script type="text/javascript" src="src/model.js"></script>
-      <script type="text/javascript">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="src/viewer.js"></script>
+    <script type="text/javascript" src="src/model.js"></script>
+    <script type="text/javascript">
 
 var model = new Model(100);
 var viewer = new Viewer(model, 600, 375);
@@ -64,6 +66,10 @@ function go() {
 
   if (self.tick == null)
     alert('Define a valid function tick()');
+}
+
+function reset() {
+  model.reset();
 }
 
 function randomStrategy(controller) {
