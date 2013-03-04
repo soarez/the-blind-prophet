@@ -15,14 +15,6 @@
     <button onclick="reset()">Reset prophet</button></p>
     <div class="edit">
 <pre id="editor">
-function tick(distance) {
-  if (distance() === 0)
-    return;
-
-  var options = ['up', 'down', 'left', 'right'];
-  var randomDirection = options[Math.floor(Math.random() * options.length)];
-  return randomDirection;
-}
 </pre>
     </div>
     <script src="lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -37,6 +29,8 @@ var viewer = new Viewer(model, 600, 375);
 
 var controller = model.getController();
 
+var interval;
+
 var frequency = 10;
 
 function DOMContentLoaded() {
@@ -44,11 +38,20 @@ function DOMContentLoaded() {
   editor.setTheme("ace/theme/chrome");
   editor.getSession().setMode("ace/mode/javascript");
   editor.getSession().setUseWrapMode(true);
+  editor.setValue(randomStrategy.toString().replace('function randomStrategy', 'function tick'))
 
   document.getElementById('viewer').appendChild(viewer.el);
 
-  setInterval(function() {
-    controller.move((self['tick'] || randomStrategy)(controller.distance.bind(controller)));
+  start();
+}
+
+function start() {
+  interval = setInterval(function() {
+    var distance = controller.distance();
+    if (distance)
+      controller.move((self['tick'] || randomStrategy)(distance));
+    else
+      clearInterval(interval);
   }, 1000 / frequency);
 }
 
@@ -68,12 +71,11 @@ function go() {
 
 function reset() {
   model.reset();
+  go();
+  start();
 }
 
 function randomStrategy(distance) {
-  if (distance() === 0)
-    return;
-
   var directions = ['up', 'down', 'left', 'right'];
   var randomDirection = directions[Math.floor(Math.random() * directions.length)];
   return randomDirection;
