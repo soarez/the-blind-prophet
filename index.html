@@ -46,6 +46,8 @@ function DOMContentLoaded() {
 }
 
 function start() {
+  if (interval) clearInterval(interval);
+
   interval = setInterval(function() {
     var distance = controller.distance();
     if (distance)
