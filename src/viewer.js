@@ -22,11 +22,11 @@ function Viewer(model, width, height) {
   var defaultSize = Math.max(this.el.width  / this.model.width, this.el.height / this.model.height);
 
   // settings
-  this.prophetColor = '55F';
+  this.prophetColor = 'rgb(85, 85, 255)';
   this.prophetSize = defaultSize/1.2;
-  this.targetColor = '393';
+  this.targetColor = 'rgb(51, 153, 51)';
   this.targetSize = defaultSize;
-  this.trailColor = 'AAF';
+  this.trailColor = 'rgb(170, 170, 255)';
   this.trailSize = defaultSize;
 
   this.drawTarget();
